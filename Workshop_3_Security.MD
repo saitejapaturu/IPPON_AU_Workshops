@@ -15,7 +15,7 @@ https://en.wikipedia.org/wiki/HTTP_cookie
 - window.name property for tracking (json, js objects 2-32MB)
 - ETags
 - HTML5 standard (tied to single page only)
-- Browser cache identitifer.. eg. var userId = 23232 for the user
+- Browser cache identifier.. eg. var userId = 23232 for the user
 - Browser finger printing
 - Super cookie .com
 
