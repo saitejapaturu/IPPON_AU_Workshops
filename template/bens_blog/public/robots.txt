@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: /Users/admin/Desktop/IPPON_AU_Workshops/template/bens_blog/public/sitemap.xml

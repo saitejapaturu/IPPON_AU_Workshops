@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml-stylesheet type="text/xsl" href="/Users/admin/Desktop/IPPON_AU_Workshops/template/bens_blog/public/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>/Users/admin/Desktop/IPPON_AU_Workshops/template/bens_blog/public/categories/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/Users/admin/Desktop/IPPON_AU_Workshops/template/bens_blog/public/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/Users/admin/Desktop/IPPON_AU_Workshops/template/bens_blog/public/tags/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
