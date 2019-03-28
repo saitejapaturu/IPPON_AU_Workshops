@@ -12,7 +12,7 @@ This workshop will guide you through a full production Cloud Deployment of your 
 >
 >-- Phil Karlton
 
-Maybe we will get a little understanding to what cache invalidation is after we configure out Cloudflare.com CDN!
+Maybe we will get a little understanding to what cache invalidation is after we configure our Cloudflare.com CDN!
 
 ## What are we building?
 
@@ -216,25 +216,63 @@ Make sure you modify the records in namecheap.com to match the required DNS sett
 ## 🔥 Extra:
 - Cloudflare has a huge amount of options, explore all the tabs!
 
-# Automatic Deployment Continued
+# 🏗️ Automatic Deployment Continued
 
-We can make use of Github and TravisCI for our deployment toolkit. We will link TravisCI and online CI/CD tool to our repository in GitHub.
+We can make use of Github and TravisCI/CircleCI for our deployment toolkit. We will link the CI system with our repository on GitHub.
 
-https://developer.github.com/webhooks/
-
-## Github auto deployment
+## Using CircleCI for auto deployment
 
 1. Fork this repository or create your own
-2. First setup github.com hooks for when you make changes to your repository
-3. A hook is basically a request made by github.com to an endpoint of your choice
-4. Our endpoint will be a serverless function that reads in our github repository from the repo, runs hugo, builds and then pulls in the release updating our Google Cloud Storage
+2. Make sure you setup a new repo and push your directory to Github.com
+3. Create a `.circleci` folder in the root directory of the repository
+4. Inside this directory create the following content in `config.yaml`
+```
+version: 2
+jobs:
+  build:
+    docker:
+      - image: google/cloud-sdk
 
-## GitLab auto
+    steps:
+      - checkout
+
+      - run:
+          name: Greeting
+          command: echo Welcome to your CircleCI Build ENV.
+
+      - run: |
+          gsutil rsync -R public gs://bucket-name
+```
+
+Make sure you change the `bucket-name`
+
+We will be authorizing Circleci access to push code changes to our Google Cloud Platform bucket.
+https://circleci.com/docs/2.0/google-auth/
+
+5. Make sure you follow this: https://cloud.google.com/sdk/docs/authorizing#authorizing_with_a_service_account
+6. Once you have a service account add these environment variables to your build environment in CircleCI
+   
+```
+GCLOUD_SERVICE_KEY
+GOOGLE_PROJECT_ID
+GOOGLE_COMPUTE_ZONE
+```
+
+7. Once everything has been setup make some changes to your website code
+```
+hugo
+git commit -m "amazing build"
+git push
+```
+
+8. Now check CircleCI and your build
+9. Login to GCP and check the content of your bucket has it changed?
+10. Now we need to login to cloudflare.com to carry out cache invalidation and remove our old content from cache
 
 ## 🔥 Extra:
 - Look into open source CI/CD platforms eg. Travis CI
 - gitlab.com provides some great features utilising containerisation
-- Setup your own more complicated CI/CD pipeline in the Cloud and make use of that credit
+- Setup your own more complicated CI/CD pipeline in GCP and make use of that credit
 
 # Extensions
 - Dynamic content
