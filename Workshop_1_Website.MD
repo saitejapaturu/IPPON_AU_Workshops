@@ -189,30 +189,7 @@ www       CNAME    c.storage.googleapis.com.
 - Explore some of the other DNS types, try creating a subdomain eg. blog.yourdomain.com
 - Multiple buckets can be created for different subdomains
 
-# ✉️ Email Setup
-
-We now have our domain pointing to our website but what about emails. Don't you want to receive emails @ yourdomain.com?
-
-We can go back to namecheap.com and enable `email forwarding` which will forward emails to our account used to signup to namecheap. We can set a `catch-all` or just have certain emails forward. Emails being sent won't be sent from this address but if you want to set that up as well check the extras section below.
-
-1. Go to domain list
-2. Manage
-3. Email Forwarding
-
-Set something up like the following:
-
-![alt text](media/Workshop1/email_forwarding.png "Architecture")
-
-Depending on whether you set a catch-all or not you should be able to send an email to the relevant address: eg. `<anything>@yourdomain.com`
-
-## 🔥 Extra:
-- Read into DMARC email validation with DNS
-- Setup your own email forwarding/filtering on AWS using SES
-- Setup free sender emailing service so you can send emails from your domain eg. Received from me@awesomedomain.com rather than forwarding to your gmail.com email.
-
 # ⚡ Cloudflare - Content Delivery Network (CDN)
-
-`Notes: With Cloudflare you require changes to the nameservers in namecheap.com so your email forwarding will not work or requires a workaround`
 
 You have finished creating your website, it's up and running on your new domain but you want speed and reliability
 
@@ -231,7 +208,7 @@ Make sure you modify the records in namecheap.com to match the required DNS sett
 5. Under the `Domain` settings in the dashboard for your domain change the `Nameservers` setting to the above `Custom` nameservers for cloudflare
 6. This may take quite a while to complete so you may only have you Cloudflare setup after you have left this workshop
 7. Verify the settings are correct and confirm
-8. `Important` move onto the next session then come back come back here
+8. `Important` move onto the next section then come back come back here
 9. Go back to cloudflare.com and check the verification
 10. If you are verified retry your domain using [cdnplanet](https://www.cdnplanet.com/tools/cdnperfcheck)
 11. You should see improved results!
@@ -260,29 +237,25 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          name: Setup
-          command: echo Welcome to your CircleCI Build ENV.
-
       - run: |
           echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-          gsutil rsync -R ./ gs://test.benedridge.com
+          gsutil rsync -R ./public gs://domain.com
 ```
 
-Make sure you change the `bucket-name`
+Make sure you change the `domain.com` to you domain or bucket name you are using. Make sure `public` is the dir that `hugo` files are uploaded to.
 
 We will be authorizing CircleCI access to push code changes to our Google Cloud Platform bucket.
 https://circleci.com/docs/2.0/google-auth/
 
-5. Make sure you follow this: https://cloud.google.com/sdk/docs/authorizing#authorizing_with_a_service_account
-6. Log back into GCP
-7. Go to `Service Accounts` Tab https://console.cloud.google.com/iam-admin/serviceaccounts
-8. `Create a service account`
-9. Choose valid names and description
-10. Select `permissions` as `Storage Object Admin` you can further reduce permissions later
-11. Skip user access
-12. `Create key` then download the file
+1. Make sure you follow this: https://cloud.google.com/sdk/docs/authorizing#authorizing_with_a_service_account
+2. Log back into GCP
+3. Go to `Service Accounts` Tab https://console.cloud.google.com/iam-admin/serviceaccounts
+4. `Create a service account`
+5. Choose valid names and description
+6.  Select `permissions` as `Storage Object Admin` you can further reduce permissions later
+7.  Skip user access
+8.  `Create key` then download the file
 
 The content will be similar to below:
 
@@ -318,9 +291,10 @@ git push
 ```
 
 8. Now check CircleCI, if everything is setup correctly you should see a nice green tick and succeeded!
-9. Login to GCP and check the content of your bucket has it changed?
-10. Now we need to login to cloudflare.com to carry out cache invalidation and remove our old content from cache
-11. Find the cache invalidation section cloudflare.com try it and check your website has updated
+9. If not you can just re-run the `build` in the CircleCI website and check error messages to make sure everything is setup correctly!
+10. Login to GCP and check the content of your bucket has it changed?
+11. Now we need to login to cloudflare.com to carry out cache invalidation and remove our old content from cache
+12. Find the cache invalidation section cloudflare.com try it and check your website has updated
 
 ## 🔥 Extra:
 - Look into open source CI/CD platforms eg. Travis CI
@@ -328,6 +302,31 @@ git push
 - Setup your own more complicated CI/CD pipeline in GCP and make use of that credit
 
 # Extensions
+
+## ✉️ Email Setup
+
+> To enable email forwarding in namecheap.com we will need to change the nameservers back to namecheap.com nameservers thus losing our ability to use the cloudflare.com CDN.
+
+We now have our domain pointing to our website but what about emails. Don't you want to receive emails @ yourdomain.com?
+
+We can go back to namecheap.com and enable `email forwarding` which will forward emails to our account used to signup to namecheap. We can set a `catch-all` or just have certain emails forward. Emails being sent won't be sent from this address but if you want to set that up as well check the extras section below.
+
+1. Go to domain list
+2. Manage
+3. Email Forwarding
+
+Set something up like the following:
+
+![alt text](media/Workshop1/email_forwarding.png "Architecture")
+
+Depending on whether you set a catch-all or not you should be able to send an email to the relevant address: eg. `<anything>@yourdomain.com`
+
+## 🔥 Extra:
+- Read into DMARC email validation with DNS
+- Setup your own email forwarding/filtering on AWS using SES
+- Setup free sender emailing service so you can send emails from your domain eg. Received from me@awesomedomain.com rather than forwarding to your gmail.com email.
+
+
 - Dynamic content
   - 3rd party (form submissions, comment sections)
   - Serverless functions for dynamically creating pages or sending an email
