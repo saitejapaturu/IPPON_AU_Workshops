@@ -106,6 +106,7 @@ There are numerous ways to setup and host our website. For this workshop Google 
 To upload to GCS we can use `gcloud` tool or the web interface. `gcloud` is a command line interface allowing us submit a number of powerful commands to GCP and manage infrastructure.
 
 ## It's GCP time
+
 1. To get started, you should login to the [Google Cloud Console](https://console.cloud.google.com/) with your Google account.
 2. Make sure enable billing and your credit/debit card is added otherwise you can't create a project!
 3. **Optional:** Set billing alerts for something like $10 so you don't waste the credit.
@@ -121,6 +122,10 @@ To upload to GCS we can use `gcloud` tool or the web interface. `gcloud` is a co
 
 To deploy on a domain other than local we need to configure hugo via the `config.toml` file. Update the changes as below:
 
+<details>
+<summary>Solution</summary>
+<p>
+
 ```
 baseUrl = "https://<your domain>"  
 title = "Choose an awesome title"
@@ -131,6 +136,9 @@ To submit your static files to GCP
 gcloud /dist <bucket-name>
 
 ```
+
+</p>
+</details>
 
 ## Starting to get Automated
 
@@ -227,6 +235,7 @@ We can make use of Github and TravisCI/CircleCI for our deployment toolkit. We w
 3. Create a `.circleci` folder in the root directory of the repository
 4. Inside this directory create the following content in `config.yaml`
 5. `Follow` the repo on CircleCI
+
 ```
 version: 2
 jobs:
@@ -253,9 +262,9 @@ https://circleci.com/docs/2.0/google-auth/
 3. Go to `Service Accounts` Tab https://console.cloud.google.com/iam-admin/serviceaccounts
 4. `Create a service account`
 5. Choose valid names and description
-6.  Select `permissions` as `Storage Object Admin` you can further reduce permissions later
-7.  Skip user access
-8.  `Create key` then download the file
+6. Select `permissions` as `Storage Object Admin`
+7. Skip user access
+8. `Create key` then download the `json` file
 
 The content will be similar to below:
 
