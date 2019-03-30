@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<?xml-stylesheet type="text/xsl" href="https://storage.googleapis.com/srisaitejapaturu.me/sitemap.xsl"?>
+<?xml-stylesheet type="text/xsl" href="https://srisaitejapaturu.me/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://storage.googleapis.com/srisaitejapaturu.me/categories/</loc>
+    <loc>https://srisaitejapaturu.me/categories/</loc>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://storage.googleapis.com/srisaitejapaturu.me/tags/</loc>
+    <loc>https://srisaitejapaturu.me/tags/</loc>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://storage.googleapis.com/srisaitejapaturu.me/</loc>
+    <loc>https://srisaitejapaturu.me/</loc>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
