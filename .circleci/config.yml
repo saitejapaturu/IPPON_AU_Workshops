@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: google/cloud-sdk
+
+    steps:
+      - checkout
+
+      - run: |
+          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+          gsutil rsync -R tejas-blog/public gs://srisaitejapaturu.me

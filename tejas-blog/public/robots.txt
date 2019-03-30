@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://storage.googleapis.com/srisaitejapaturu.me/sitemap.xml
